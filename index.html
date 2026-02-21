@@ -35,7 +35,7 @@
     <div class="count-container grid grid-cols-3 w-full">
         <div class="total-count bg-white rounded-lg m-2 p-2">
           <p class="text-[15px] md:text-[20px]">Total</p>
-          <p class="text-[15px] md:text-[20px] font-medium md:font-semibold">0</p>
+          <p id="total-count-1" class="text-[15px] md:text-[20px] font-medium md:font-semibold">0</p>
         </div>
         <div class="total-count bg-white rounded-lg m-2 p-2">
           
@@ -56,7 +56,7 @@
     <!-- job card overall heading -->
      <div class="flex justify-between">
        <h1 class="text-xl font-semibold mb-4 px-2">Available Jobs</h1>
-       <p class="text-gray-700 font-semibold pr-3">0 Jobs</p>
+       <p class="text-gray-700 font-semibold pr-3"><span id="total-count-2">0</span> Jobs</p>
      </div>
     
     <div class="gap-4 px-2">
@@ -70,7 +70,7 @@
      <section class="w-full md:w-[70%] mx-auto py-8 space-y-5">
 
       <!-- card 1 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">Mobile Fast Corp</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">React Native Developer</h2>
@@ -87,7 +87,7 @@
 
       
       <!-- card 2 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">WebFlow Agency</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Web Designer & Developer</h2>
@@ -103,7 +103,7 @@
       </div>
 
       <!-- card 3 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">DataViz Solutions</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Data Visualization Specialist</h2>
@@ -119,7 +119,7 @@
       </div>
 
       <!-- card 4 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">CloudFirst Inc</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Backend Developer</h2>
@@ -135,7 +135,7 @@
       </div>
 
       <!-- card 5 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">Innovation Labs</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">UI/UX Engineer</h2>
@@ -151,7 +151,7 @@
       </div>
 
       <!-- card 6 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">MegaCorp Solutions</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Full Stack Engineer</h2>
@@ -167,7 +167,7 @@
       </div>
 
       <!-- card 7 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">StartupXYZ</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Full Stack Engineer</h2>
@@ -183,7 +183,7 @@
       </div>
 
       <!-- card 8 -->
-       <div class="flex justify-between bg-white rounded-lg">
+       <div class="common-card flex justify-between bg-white rounded-lg">
          <div class="left-div p-5">
            <h3 class="text-2xl font-semibold mb-2 text-[#002C5C]">TechCorp Industries</h3>
            <h2 class="text-xl font-medium text-gray-500 mb-4">Senior Frontend Developer</h2>
@@ -197,9 +197,6 @@
           <i class="fa-regular fa-trash-can text-gray-400"></i>
         </div>
       </div>
-
-
-      
     </section>
 
 
