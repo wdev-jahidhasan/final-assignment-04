@@ -35,23 +35,24 @@
     <div class="count-container grid grid-cols-3 w-full">
         <div class="total-count bg-white rounded-lg m-2 p-2">
           <p class="text-[15px] md:text-[20px]">Total</p>
-          <p id="total-count-1" class="text-[15px] md:text-[35px] font-medium md:font-semibold">0</p>
+          <p id="total-count-1" class="text-[15px] md:text-[25px] font-medium md:font-semibold">0</p>
         </div>
         <div class="total-count bg-white rounded-lg m-2 p-2">
           
           <p class="text-[15px] md:text-[20px]">Interview</p>
-          <p id="interview-count" class="text-[15px] md:text-[35px] font-medium md:font-semibold text-green-500">0</p>
+          <p id="interview-count" class="text-[15px] md:text-[25px] font-medium md:font-semibold text-green-500">0</p>
         </div>
         <div class="total-count bg-white rounded-lg m-2 p-2">
           
           <p class="text-[15px] md:text-[20px]">Rejected</p>
-          <p id="rejected-count" class="text-[15px] md:text-[35px] font-medium md:font-semibold text-red-500">0</p>
+          <p id="rejected-count" class="text-[15px] md:text-[25px] font-medium md:font-semibold text-red-500">0</p>
         </div>
 
     </div>
   </header>
 
   <!-- job info cards -->
+  <main>
   <section class="w-full md:w-[70%] mx-auto my-8">
     <!-- job card overall heading -->
      <div class="flex justify-between">
@@ -60,9 +61,9 @@
      </div>
     
     <div class="gap-4 px-2">
-        <button class="all-btn btn btn-outline rounded-md p-5 bg-gradient-to-r from-blue-600 to-blue-800 text-white">All</button>
-        <button class="all-btn btn btn-outline rounded-md p-5 mx-6">Interview</button>
-        <button class="all-btn btn btn-outline rounded-md p-5">Rejected</button>
+        <button onclick="toggleStyle('all-filter-button')" id="all-filter-button" class="all-btn btn btn-outline rounded-md p-5 bg-gradient-to-r from-blue-600 to-blue-800 text-white">All</button>
+        <button onclick="toggleStyle('interview-filter-button')" id="interview-filter-button" class="all-btn btn btn-outline rounded-md p-5 mx-6 bg-gray-200 text-black">Interview</button>
+        <button onclick="toggleStyle('rejected-filter-button')" id="rejected-filter-button" class="all-btn btn btn-outline rounded-md p-5 bg-gray-200 text-black">Rejected</button>
     </div>
   </section>
 
@@ -198,6 +199,7 @@
         </div>
       </div>
     </section>
+  </main>
 
 
   <script src="scripts/script.js"></script>
