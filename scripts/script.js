@@ -6,6 +6,7 @@ let rejectedList = [];
 let total = document.getElementById('total-count-1');
 let total2 = document.getElementById('total-count-2');
 let interviewCount = document.getElementById('interview-count');
+// let interviewCount2 = document.getElementById('interview-count-2');
 let rejectedCount = document.getElementById('rejected-count');
 
 const allFilterBtn = document.getElementById('all-filter-button');
@@ -20,6 +21,7 @@ function calculateCount(){
     total.innerText = allCardsSection.children.length;
     total2.innerText = allCardsSection.children.length;
     interviewCount.innerText = interviewList.length;
+    // interviewCount2.innerText = `${interviewList.length, 'of'}`
     rejectedCount.innerText = rejectedList.length;
 }
 
@@ -37,10 +39,14 @@ function toggleStyle(id){
     if(id == 'interview-filter-button'){
         allCardsSection.classList.add('hidden');
         // selected.parentNode.classList.add('bg-green-500')
+        // applicationStatus.classList.add('bg-gree-400');
         filteredSection.classList.remove('hidden');
+        // section wise koyta job seta dekhanor code
+        total2.innerText = `${interviewList.length} of ${allCardsSection.children.length}`
     }else if (id == 'all-filter-button'){
         allCardsSection.classList.remove('hidden');
         filteredSection.classList.add('hidden')
+        total2.innerText = allCardsSection.children.length;
     }
     
 }
@@ -67,7 +73,7 @@ mainContainer.addEventListener('click', function(event){
         companyName,
         jobTitle,
         jobType,
-        applicationStatus,
+        applicationStatus: 'Interview',
         jobDescription,
         interviewGreen,
         rejectedRed
@@ -79,8 +85,9 @@ mainContainer.addEventListener('click', function(event){
     if(!ExistingCompany){
        interviewList.push(cardInfo); 
     }
+    calculateCount();
     
-    renderInterview()
+    renderInterview();
     }
 
 })
