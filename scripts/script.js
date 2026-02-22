@@ -36,3 +36,27 @@ function toggleStyle(id){
     const selected = document.getElementById(id);
     selected.classList.add('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
 }
+
+// card transferring to the category
+
+mainContainer.addEventListener('click', function(event){
+    const parentNode = event.target.parentNode.parentNode;
+    const companyName = parentNode.querySelector('.company-name').innerText;
+    const jobTitle = parentNode.querySelector('.job-title').innerText;
+    const jobType = parentNode.querySelector('.job-type').innerText;
+    const applicationStatus = parentNode.querySelector('.application-status').innerText;
+    const jobDescription = parentNode.querySelector('.job-description').innerText;
+    const interviewGreen = parentNode.querySelector('.interview-green').innerText;
+    const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
+    
+    const cardInfo ={
+        companyName,
+        jobTitle,
+        jobType,
+        applicationStatus,
+        jobDescription,
+        interviewGreen,
+        rejectedRed
+    }
+    
+})
