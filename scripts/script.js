@@ -2,6 +2,7 @@
 
 let interviewList = [];
 let rejectedList = [];
+let currentStatus = 'all';
 
 let total = document.getElementById('total-count-1');
 let total2 = document.getElementById('total-count-2');
@@ -34,6 +35,9 @@ function toggleStyle(id){
     rejectedFilterBtn.classList.remove('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
 
     const selected = document.getElementById(id);
+
+    currentStatus = id
+
     selected.classList.add('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
 
     if(id == 'interview-filter-button'){
@@ -43,10 +47,21 @@ function toggleStyle(id){
         filteredSection.classList.remove('hidden');
         // section wise koyta job seta dekhanor code
         total2.innerText = `${interviewList.length} of ${allCardsSection.children.length}`
+
+        // self test
+        renderInterview();
     }else if (id == 'all-filter-button'){
         allCardsSection.classList.remove('hidden');
         filteredSection.classList.add('hidden')
         total2.innerText = allCardsSection.children.length;
+    }else if (id == 'rejected-filter-button'){
+        allCardsSection.classList.add('hidden');
+        filteredSection.classList.remove('hidden');
+
+        // section wise koyta job seta dekhanor code
+        total2.innerText = `${rejectedList.length} of ${allCardsSection.children.length}`
+
+        renderRejected();
     }
     
 }
@@ -85,9 +100,17 @@ mainContainer.addEventListener('click', function(event){
     if(!ExistingCompany){
        interviewList.push(cardInfo); 
     }
+
+    rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName);
+
     calculateCount();
+
+    if(currentStatus == 'rejected-filter-button'){
+        renderRejected();
+    }
     
-    renderInterview();
+    // eta kono problem kore kina dekhte hobe --------------------
+    // renderInterview();
     }else if(event.target.classList.contains('rejected-red')){
         const parentNode = event.target.parentNode.parentNode;
     const companyName = parentNode.querySelector('.company-name').innerText;
@@ -118,9 +141,16 @@ mainContainer.addEventListener('click', function(event){
     if(!ExistingCompany){
        rejectedList.push(cardInfo); 
     }
+
+    interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName);
+
+    if(currentStatus == 'interview-filter-button'){
+        renderInterview();
+    }
+
     calculateCount();
     
-    renderRejected();
+   
     }
 
 })
