@@ -94,10 +94,10 @@ mainContainer.addEventListener('click', function(event){
         rejectedRed
     }
 
-    const ExistingCompany = interviewList.find(item => item.companyName == cardInfo.companyName);
+    const existingCompany = interviewList.find(item => item.companyName == cardInfo.companyName);
     
     
-    if(!ExistingCompany){
+    if(!existingCompany){
        interviewList.push(cardInfo); 
     }
 
@@ -135,10 +135,10 @@ mainContainer.addEventListener('click', function(event){
         rejectedRed
     }
 
-    const ExistingCompany = rejectedList.find(item => item.companyName == cardInfo.companyName);
+    const existingCompany = rejectedList.find(item => item.companyName == cardInfo.companyName);
     
     
-    if(!ExistingCompany){
+    if(!existingCompany){
        rejectedList.push(cardInfo); 
     }
 
@@ -181,14 +181,26 @@ function renderInterview(){
 
         filteredSection.appendChild(div);
     }
+
+    if(filteredSection.innerHTML == ''){
+        // backtick er moddhe code bosbe
+        filteredSection.innerHTML = `
+            <div class="p-10 mx-3 my-10 bg-gradient-to-br from-slate-400 to-red-200 rounded-md">
+                <img class="w-36 h-36 mx-auto" src="./images/box.png" alt="">
+                <h1 class="text-3xl text-center text-gray-700 font-semibold my-3">No jobs available</h1>
+                <p class="text-center font-medium">Check back soon for new job opportunities</p>
+         </div>
+        `
+    }
+
 }
  
 // renderRejected function
 
 function renderRejected(){
     filteredSection.innerHTML = '';
+    
     for(let rejected of rejectedList){
-        // console.log(interview)
 
         let div = document.createElement('div');
         div.className = 'common-card flex justify-between bg-white rounded-lg';
@@ -209,5 +221,16 @@ function renderRejected(){
         `
 
         filteredSection.appendChild(div);
+    }
+
+    if(filteredSection.innerHTML == ''){
+        // backtick er moddhe code bosbe
+        filteredSection.innerHTML = `
+            <div class="p-10 mx-3 my-10 bg-gradient-to-br from-slate-400 to-red-200 rounded-md">
+                <img class="w-36 h-36 mx-auto" src="./images/box.png" alt="">
+                <h1 class="text-3xl text-center text-gray-700 font-semibold my-3">No jobs available</h1>
+                <p class="text-center font-medium">Check back soon for new job opportunities</p>
+         </div>
+        `
     }
 }
