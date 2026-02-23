@@ -7,7 +7,6 @@ let currentStatus = 'all';
 let total = document.getElementById('total-count-1');
 let total2 = document.getElementById('total-count-2');
 let interviewCount = document.getElementById('interview-count');
-// let interviewCount2 = document.getElementById('interview-count-2');
 let rejectedCount = document.getElementById('rejected-count');
 
 const allFilterBtn = document.getElementById('all-filter-button');
@@ -18,149 +17,148 @@ const allCardsSection = document.getElementById('all-cards');
 const mainContainer = document.querySelector('main');
 const filteredSection = document.getElementById('filtered-section');
 
-function calculateCount(){
-    total.innerText = allCardsSection.children.length;
-    total2.innerText = allCardsSection.children.length;
-    interviewCount.innerText = interviewList.length;
-    // interviewCount2.innerText = `${interviewList.length, 'of'}`
-    rejectedCount.innerText = rejectedList.length;
-}
+// calculateCount() function
 
+function calculateCount() {
+    const totalJobs = allCardsSection.children.length;
+
+    total.innerText = totalJobs;
+    interviewCount.innerText = interviewList.length;
+    rejectedCount.innerText = rejectedList.length;
+
+    if (currentStatus === 'interview-filter-button') {
+        total2.innerText = `${interviewList.length} of ${totalJobs} Jobs`;
+    }
+    else if (currentStatus === 'rejected-filter-button') {
+        total2.innerText = `${rejectedList.length} of ${totalJobs} Jobs`;
+    }
+    else {
+        total2.innerText = `${totalJobs} Jobs`;
+    }
+}
 calculateCount();
 
-function toggleStyle(id){
+// toggleStyle() function
 
-    allFilterBtn.classList.remove('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
-    interviewFilterBtn.classList.remove('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
-    rejectedFilterBtn.classList.remove('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
+function toggleStyle(id) {
+    allFilterBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-blue-800', 'text-white');
+    interviewFilterBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-blue-800', 'text-white');
+    rejectedFilterBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-blue-800', 'text-white');
 
     const selected = document.getElementById(id);
-
-    currentStatus = id
-
-    selected.classList.add('bg-gradient-to-r' , 'from-blue-600' , 'to-blue-800', 'text-white');
-
-    if(id == 'interview-filter-button'){
+    currentStatus = id;
+    selected.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-blue-800', 'text-white');
+    if (id == 'interview-filter-button') {
         allCardsSection.classList.add('hidden');
-        // selected.parentNode.classList.add('bg-green-500')
-        // applicationStatus.classList.add('bg-gree-400');
         filteredSection.classList.remove('hidden');
-        // section wise koyta job seta dekhanor code
-        total2.innerText = `${interviewList.length} of ${allCardsSection.children.length}`
-
-        // self test
+        total2.innerText = `${interviewList.length} of ${allCardsSection.children.length} Jobs`;
         renderInterview();
-    }else if (id == 'all-filter-button'){
+    } else if (id == 'all-filter-button') {
         allCardsSection.classList.remove('hidden');
         filteredSection.classList.add('hidden')
-        total2.innerText = allCardsSection.children.length;
-    }else if (id == 'rejected-filter-button'){
+        total2.innerText = `${allCardsSection.children.length} Jobs`;
+    } else if (id == 'rejected-filter-button') {
         allCardsSection.classList.add('hidden');
         filteredSection.classList.remove('hidden');
-
-        // section wise koyta job seta dekhanor code
-        total2.innerText = `${rejectedList.length} of ${allCardsSection.children.length}`
-
+        total2.innerText = `${rejectedList.length} of ${allCardsSection.children.length} Jobs`;
         renderRejected();
     }
-    
 }
 
 // card transferring to the category
 
-mainContainer.addEventListener('click', function(event){
-    
-    if(event.target.classList.contains('interview-green')){
+mainContainer.addEventListener('click', function (event) {
+
+    if (event.target.classList.contains('interview-green')) {
         const parentNode = event.target.parentNode.parentNode;
-    const companyName = parentNode.querySelector('.company-name').innerText;
-    const jobTitle = parentNode.querySelector('.job-title').innerText;
-    const jobType = parentNode.querySelector('.job-type').innerText;
-    const applicationStatus = parentNode.querySelector('.application-status').innerText;
-    const jobDescription = parentNode.querySelector('.job-description').innerText;
-    const interviewGreen = parentNode.querySelector('.interview-green').innerText;
-    const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
-    parentNode.querySelector('.application-status').innerText = interviewGreen;
-    // event.target.classList.parentNode.parentNode.add('bg-green-500');
-    //nicher line diye application status button er color green hocche
-    // parentNode.querySelector('.application-status').classList.add('bg-green-400');
-    
-    const cardInfo ={
-        companyName,
-        jobTitle,
-        jobType,
-        applicationStatus: 'Interview',
-        jobDescription,
-        interviewGreen,
-        rejectedRed
-    }
+        const companyName = parentNode.querySelector('.company-name').innerText;
+        const jobTitle = parentNode.querySelector('.job-title').innerText;
+        const jobType = parentNode.querySelector('.job-type').innerText;
+        const applicationStatus = parentNode.querySelector('.application-status').innerText;
+        const jobDescription = parentNode.querySelector('.job-description').innerText;
+        const interviewGreen = parentNode.querySelector('.interview-green').innerText;
+        const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
+        parentNode.querySelector('.application-status').innerText = interviewGreen;
 
-    const existingCompany = interviewList.find(item => item.companyName == cardInfo.companyName);
-    
-    
-    if(!existingCompany){
-       interviewList.push(cardInfo); 
-    }
 
-    rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName);
+        // green button wise status er color & border change (kintu section wise change hoy na)
 
-    calculateCount();
+        const statusBtn = parentNode.querySelector('.application-status');
+        statusBtn.classList.remove('btn-error', 'btn-soft');
+        statusBtn.classList.add('btn-success');
+        statusBtn.parentNode.parentNode.classList.add('border-l-[5px]', 'border-green-500');
+        statusBtn.parentNode.parentNode.classList.remove('border-red-500');
 
-    if(currentStatus == 'rejected-filter-button'){
-        renderRejected();
-    }
-    
-    // eta kono problem kore kina dekhte hobe --------------------
-    // renderInterview();
-    }else if(event.target.classList.contains('rejected-red')){
+
+        const cardInfo = {
+            companyName,
+            jobTitle,
+            jobType,
+            applicationStatus: 'Interview',
+            jobDescription,
+            interviewGreen,
+            rejectedRed
+        }
+
+        const existingCompany = interviewList.find(item => item.companyName == cardInfo.companyName);
+        if (!existingCompany) {
+            interviewList.push(cardInfo);
+        }
+
+        rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName);
+        calculateCount();
+
+        if (currentStatus === 'rejected-filter-button') {
+            renderRejected();
+        }
+
+    } else if (event.target.classList.contains('rejected-red')) {
         const parentNode = event.target.parentNode.parentNode;
-    const companyName = parentNode.querySelector('.company-name').innerText;
-    const jobTitle = parentNode.querySelector('.job-title').innerText;
-    const jobType = parentNode.querySelector('.job-type').innerText;
-    const applicationStatus = parentNode.querySelector('.application-status').innerText;
-    const jobDescription = parentNode.querySelector('.job-description').innerText;
-    const interviewGreen = parentNode.querySelector('.interview-green').innerText;
-    const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
-    parentNode.querySelector('.application-status').innerText = rejectedRed;
-    // event.target.classList.parentNode.parentNode.add('bg-green-500');
-    //nicher line diye application status button er color green hocche
-    // parentNode.querySelector('.application-status').classList.add('bg-green-400');
-    
-    const cardInfo ={
-        companyName,
-        jobTitle,
-        jobType,
-        applicationStatus: 'Rejected',
-        jobDescription,
-        interviewGreen,
-        rejectedRed
+        const companyName = parentNode.querySelector('.company-name').innerText;
+        const jobTitle = parentNode.querySelector('.job-title').innerText;
+        const jobType = parentNode.querySelector('.job-type').innerText;
+        const applicationStatus = parentNode.querySelector('.application-status').innerText;
+        const jobDescription = parentNode.querySelector('.job-description').innerText;
+        const interviewGreen = parentNode.querySelector('.interview-green').innerText;
+        const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
+        parentNode.querySelector('.application-status').innerText = rejectedRed;
+
+        // red button wise status er color & border change (kintu section wise change hoy na)
+
+        const statusBtn = parentNode.querySelector('.application-status');
+        statusBtn.classList.remove('btn-success', 'btn-soft');
+        statusBtn.classList.add('btn-error');
+        statusBtn.parentNode.parentNode.classList.add('border-l-[5px]', 'border-red-500');
+        statusBtn.parentNode.parentNode.classList.remove('border-green-500');
+
+
+        const cardInfo = {
+            companyName,
+            jobTitle,
+            jobType,
+            applicationStatus: 'Rejected',
+            jobDescription,
+            interviewGreen,
+            rejectedRed
+        }
+
+        const existingCompany = rejectedList.find(item => item.companyName == cardInfo.companyName);
+        if (!existingCompany) {
+            rejectedList.push(cardInfo);
+        }
+
+        interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName);
+        if (currentStatus === 'interview-filter-button') {
+            renderInterview();
+        }
+        calculateCount();
     }
-
-    const existingCompany = rejectedList.find(item => item.companyName == cardInfo.companyName);
-    
-    
-    if(!existingCompany){
-       rejectedList.push(cardInfo); 
-    }
-
-    interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName);
-
-    if(currentStatus == 'interview-filter-button'){
-        renderInterview();
-    }
-
-    calculateCount();
-    
-   
-    }
-
 })
 
 // renderInterview function
-function renderInterview(){
+function renderInterview() {
     filteredSection.innerHTML = '';
-    for(let interview of interviewList){
-        // console.log(interview)
-
+    for (let interview of interviewList) {
         let div = document.createElement('div');
         div.className = 'common-card flex justify-between bg-gradient-to-b from-green-100 to-blue-100 rounded-lg';
         div.innerHTML = `
@@ -182,7 +180,7 @@ function renderInterview(){
         filteredSection.appendChild(div);
     }
 
-    if(filteredSection.innerHTML == ''){
+    if (filteredSection.innerHTML == '') {
         // backtick er moddhe code bosbe
         filteredSection.innerHTML = `
             <div class="p-10 mx-3 my-10 bg-gradient-to-br from-slate-400 to-red-200 rounded-md">
@@ -192,16 +190,12 @@ function renderInterview(){
          </div>
         `
     }
-
 }
- 
+
 // renderRejected function
-
-function renderRejected(){
+function renderRejected() {
     filteredSection.innerHTML = '';
-    
-    for(let rejected of rejectedList){
-
+    for (let rejected of rejectedList) {
         let div = document.createElement('div');
         div.className = 'common-card flex justify-between bg-gradient-to-b from-green-100 to-blue-100 rounded-lg';
         div.innerHTML = `
@@ -223,8 +217,7 @@ function renderRejected(){
         filteredSection.appendChild(div);
     }
 
-    if(filteredSection.innerHTML == ''){
-        // backtick er moddhe code bosbe
+    if (filteredSection.innerHTML == '') {
         filteredSection.innerHTML = `
             <div class="p-10 mx-3 my-10 bg-gradient-to-br from-slate-400 to-red-200 rounded-md">
                 <img class="w-36 h-36 mx-auto" src="./images/box.png" alt="">
