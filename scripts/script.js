@@ -162,7 +162,7 @@ function renderInterview(){
         // console.log(interview)
 
         let div = document.createElement('div');
-        div.className = 'common-card flex justify-between bg-white rounded-lg';
+        div.className = 'common-card flex justify-between bg-gradient-to-b from-green-100 to-blue-100 rounded-lg';
         div.innerHTML = `
             <div class="left-div p-5">
            <h3 class="company-name text-2xl font-semibold mb-2 text-[#002C5C]">${interview.companyName}</h3>
@@ -203,7 +203,7 @@ function renderRejected(){
     for(let rejected of rejectedList){
 
         let div = document.createElement('div');
-        div.className = 'common-card flex justify-between bg-white rounded-lg';
+        div.className = 'common-card flex justify-between bg-gradient-to-b from-green-100 to-blue-100 rounded-lg';
         div.innerHTML = `
             <div class="left-div p-5">
            <h3 class="company-name text-2xl font-semibold mb-2 text-[#002C5C]">${rejected.companyName}</h3>
