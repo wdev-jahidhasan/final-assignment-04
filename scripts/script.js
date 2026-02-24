@@ -1,5 +1,3 @@
-// button toggling and section wise count
-
 let interviewList = [];
 let rejectedList = [];
 let currentStatus = 'all';
@@ -81,20 +79,11 @@ mainContainer.addEventListener('click', function (event) {
         parentNode.querySelector('.application-status').innerText = interviewGreen;
 
 
-        // green button wise status er color & border change (kintu section wise change hoy na)
-
-        const statusBtn = parentNode.querySelector('.application-status');
-        statusBtn.classList.remove('btn-error', 'btn-soft');
-        statusBtn.classList.add('btn-success');
-        statusBtn.parentNode.parentNode.classList.add('border-l-[5px]', 'border-green-500');
-        statusBtn.parentNode.parentNode.classList.remove('border-red-500');
-
-
         const cardInfo = {
             companyName,
             jobTitle,
             jobType,
-            applicationStatus: 'Interview',
+            applicationStatus: interviewGreen,
             jobDescription,
             interviewGreen,
             rejectedRed
@@ -123,20 +112,11 @@ mainContainer.addEventListener('click', function (event) {
         const rejectedRed = parentNode.querySelector('.rejected-red').innerText;
         parentNode.querySelector('.application-status').innerText = rejectedRed;
 
-        // red button wise status er color & border change (kintu section wise change hoy na)
-
-        const statusBtn = parentNode.querySelector('.application-status');
-        statusBtn.classList.remove('btn-success', 'btn-soft');
-        statusBtn.classList.add('btn-error');
-        statusBtn.parentNode.parentNode.classList.add('border-l-[5px]', 'border-red-500');
-        statusBtn.parentNode.parentNode.classList.remove('border-green-500');
-
-
         const cardInfo = {
             companyName,
             jobTitle,
             jobType,
-            applicationStatus: 'Rejected',
+            applicationStatus: rejectedRed,
             jobDescription,
             interviewGreen,
             rejectedRed
@@ -152,10 +132,42 @@ mainContainer.addEventListener('click', function (event) {
             renderInterview();
         }
         calculateCount();
+
+    // code for enabling delete icons 
+
+    } 
+    else if(event.target.classList.contains('fa-trash-can')){
+
+        const card = event.target.closest('.common-card');
+        const companyName = card.querySelector('.company-name').innerText;
+
+        card.remove();
+
+        interviewList = interviewList.filter(item => item.companyName !== companyName);
+        rejectedList = rejectedList.filter(item => item.companyName !== companyName);
+
+        calculateCount();
+
+        if(currentStatus === 'interview-filter-button'){
+            renderInterview();
+        }else if(currentStatus === 'rejected-filter-button'){
+            renderRejected();
+        }
+
+        const allCards = allCardsSection.querySelectorAll('.common-card');
+        allCards.forEach(item => {
+            const name = item.querySelector('.company-name').innerText;
+            if(name === companyName){
+                const statusBtn = item.querySelector('.application-status');
+                statusBtn.innerText = 'Not Applied';
+            }
+        });
+
     }
 })
 
 // renderInterview function
+
 function renderInterview() {
     filteredSection.innerHTML = '';
     for (let interview of interviewList) {
@@ -181,7 +193,6 @@ function renderInterview() {
     }
 
     if (filteredSection.innerHTML == '') {
-        // backtick er moddhe code bosbe
         filteredSection.innerHTML = `
             <div class="p-10 mx-3 my-10 bg-gradient-to-br from-slate-400 to-red-200 rounded-md">
                 <img class="w-36 h-36 mx-auto" src="./images/box.png" alt="">
@@ -193,6 +204,7 @@ function renderInterview() {
 }
 
 // renderRejected function
+
 function renderRejected() {
     filteredSection.innerHTML = '';
     for (let rejected of rejectedList) {
